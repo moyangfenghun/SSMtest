@@ -10,8 +10,10 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<spring.version>4.3.22.RELEASE</spring.version>
-		<jackson.version>2.5.0</jackson.version>
+		<jackson.version>2.8.11.1</jackson.version>
 		<mybatis.version>3.2.8</mybatis.version>
+		<fastjson.version>1.2.31</fastjson.version>
+		<jacksonAC.version>2.9.0.pr1</jacksonAC.version>
 	</properties>
 
 	<dependencies>
@@ -147,19 +149,19 @@
 		<dependency>
 			<groupId>com.alibaba</groupId>
 			<artifactId>fastjson</artifactId>
-			<version>1.2.3</version>
+			<version>${fastjson.version}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-annotations</artifactId>
-			<version>${jackson.version}</version>
+			<version>${jacksonAC.version}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-core</artifactId>
-			<version>${jackson.version}</version>
+			<version>${jacksonAC.version}</version>
 		</dependency>
 
 		<dependency>
@@ -177,7 +179,7 @@
 		<dependency>
 			<groupId>commons-fileupload</groupId>
 			<artifactId>commons-fileupload</artifactId>
-			<version>1.2.2</version>
+			<version>1.3.3</version>
 		</dependency>
 
 
