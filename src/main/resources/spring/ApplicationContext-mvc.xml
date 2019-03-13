@@ -10,11 +10,11 @@
 
 
 
-	<context:component-scan base-package="test.ssm.controller" />
+	<context:component-scan base-package="ssm.test.controller" />
 
 	<!-- AOP 注解方式 ；定义Aspect -->
 	<!-- 激活组件扫描功能,在包"com.example.aop及其子包下面自动扫描通过注解配置的组件 -->
-	<context:component-scan base-package="test.ssm.aop" />
+	<context:component-scan base-package="ssm.test.aop" />
 	<!-- 启动AspectJ支持 只对扫描过的bean有效 -->
 	<aop:aspectj-autoproxy proxy-target-class="true" />
 
@@ -37,7 +37,7 @@
 			<mvc:mapping path="/**" />
 			<mvc:exclude-mapping path="/login/**" />
 			<mvc:exclude-mapping path="/errorPage/**" />
-			<bean class="test.ssm.intercepters.MainIntercepter"></bean>
+			<bean class="ssm.test.intercepters.MainIntercepter"></bean>
 		</mvc:interceptor>
 	</mvc:interceptors>
 

@@ -24,7 +24,7 @@
 			<property name="forceBigDecimals" value="false" />
 		</javaTypeResolver>
 
-		<javaModelGenerator targetPackage="test.ssm.bean"
+		<javaModelGenerator targetPackage="ssm.test.bean"
 			targetProject="src/main/java">
 			<property name="enableSubPackages" value="true" />
 			<property name="trimStrings" value="true" />
@@ -36,7 +36,7 @@
 		</sqlMapGenerator>
 
 		<javaClientGenerator type="XMLMAPPER"
-			targetPackage="test.ssm.dao" targetProject="src/main/java">
+			targetPackage="ssm.test.dao" targetProject="src/main/java">
 			<property name="enableSubPackages" value="true" />
 		</javaClientGenerator>
 
@@ -44,7 +44,8 @@
 			enableDeleteByExample="false" enableSelectByExample="false"
 			enableUpdateByExample="false">
 			<property name="useActualColumnNames" value="false" />
-			<generatedKey column="id" sqlStatement="Mysql" type="post" identity="true" />
+			<!-- type=post |type=pre -->
+			<generatedKey column="id" sqlStatement="Mysql"  identity="true" />
 		</table>
 
 	</context>
