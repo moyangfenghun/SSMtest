@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+						http://www.springframework.org/schema/beans/spring-beans.xsd
+						http://www.springframework.org/schema/aop 
+						http://www.springframework.org/schema/aop/spring-aop.xsd
+						http://www.springframework.org/schema/context 
+						http://www.springframework.org/schema/context/spring-context.xsd
+						http://www.springframework.org/schema/tx 
+						http://www.springframework.org/schema/tx/spring-tx.xsd
+	">
+
+	<!-- 启用注解 -->
+	<context:annotation-config />
+
+	<!-- 启动组件扫描，排除@Controller组件，该组件由SpringMVC配置文件扫描 -->
+	<context:component-scan base-package="test.ssm">
+		<context:exclude-filter type="annotation"
+			expression="org.springframework.stereotype.Controller" />
+	</context:component-scan>
+
+	<!--2、加载数据库配置文件-->
+    <context:property-placeholder location="classpath:mybatis/jdbc.properties" ignore-unresolvable="true"/>
+
+    <!--3、加载数据源-->
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+        <property name="username" value="${jdbc.username}"/>
+        <property name="driverClassName" value="${jdbc.driverClassName}"/>
+        <property name="url" value="${jdbc.url}"/>
+        <property name="password" value="${jdbc.password}"/>
+        <!-- 配置扩展插件 监控统计用filters:stat 日志用filters:log4j 防御sql注入用filters:wall -->
+        <property name = "filters" value = "${filters}" />
+        <!-- 最大并发连接数 -->
+        <property name="maxActive" value="${maxActive}" />
+        <!-- 初始化连接数量 -->
+        <property name="initialSize" value="${initialSize}" />
+        <!-- 配置获取连接等待超时的时间 -->
+        <property name="maxWait" value="${maxWait}" />
+        <!-- 最小空闲连接数 -->
+        <property name="minIdle" value="${minIdle}" />
+        <!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
+        <property name="timeBetweenEvictionRunsMillis" value="${timeBetweenEvictionRunsMillis}" />
+        <!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
+        <property name="minEvictableIdleTimeMillis" value="${minEvictableIdleTimeMillis}" />
+        <!-- 用来检测连接是否的sql，要求是一个查询语句。在mysql中通常设置为SELECT 'X' -->
+        <property name="validationQuery" value="${validationQuery}" />
+        <!-- 申请连接的时候检测，如果空闲时间大于timeBetweenEvictionRunsMillis，执行validationQuery连接是否有效 -->
+        <property name="testWhileIdle" value="${testWhileIdle}" />
+        <!-- 申请连接时执行validationQuery检测连接是否有效 这个配置会降低性能 -->
+        <property name="testOnBorrow" value="${testOnBorrow}" />
+        <!-- 归还连接时执行validationQuery检测连接是否有效 这个配置会降低性能 -->
+        <property name="testOnReturn" value="${testOnReturn}" />
+        <!-- 要启用PSCache，必须配置大于0，当大于0时，poolPreparedStatements自动触发修改为true -->
+        <property name="maxOpenPreparedStatements" value="${maxOpenPreparedStatements}" />
+        <!-- 打开removeAbandoned功能 -->
+        <property name="removeAbandoned" value="${removeAbandoned}" />
+        <!-- 1800秒，也就是30分钟 -->
+        <property name="removeAbandonedTimeout" value="${removeAbandonedTimeout}" />
+        <!-- 关闭abanded连接时输出错误日志 -->
+        <property name="logAbandoned" value="${logAbandoned}" />
+    </bean>
+    
+    <!--4、创建sqlSessionFactory，加载mybatis的配置文件，注入数据源-->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="mapperLocations" value="classpath:mybatis/mapperAs/*.xml"/>
+        <property name="configLocation" value="classpath:mybatis/mybatis-config.xml"/>
+    </bean>
+
+    <!--5、扫描dao接口所在的包，生成代理实现类-->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="test.ssm.dao"/>
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
+    </bean>
+
+    <!--6、事物管理器-->
+    <bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+    
+    <!--7、通知-->
+    <tx:advice id="txAdvice" transaction-manager="txManager">
+        <tx:attributes>
+            <tx:method name="add*" isolation="REPEATABLE_READ" rollback-for="Exception"/>
+            <tx:method name="update*" isolation="REPEATABLE_READ" rollback-for="Exception"/>
+            <tx:method name="get*" isolation="REPEATABLE_READ" read-only="true"/>
+            <tx:method name="delete*" rollback-for="Exception"/>
+            <tx:method name="find*" isolation="REPEATABLE_READ" read-only="true"/>
+            <tx:method name="*"/>
+        </tx:attributes>
+    </tx:advice>
+
+    <!--8、aop管理事物-->
+    <aop:config>
+        <aop:pointcut expression="execution(* test.ssm.service..*.*(..))" id="serviceMethod"/>
+        <aop:advisor advice-ref="txAdvice" pointcut-ref="serviceMethod"/>
+         <!--调用日志类 声明aop -->
+         <!-- <aop:aspect id="LogAspect" ref="logAspect">-->
+              <!--配置在controller包下所有的类在调用之前都会被拦截
+              <aop:pointcut id="log" expression="execution(* com.noahwm.uomp.archives.controller.*.*(..))"/> --> 
+              <!-- 方法前触发 <aop:before pointcut-ref="log" method="before"/> -->
+               <!-- 方法后触发<aop:after pointcut-ref="log" method="after"/> -->
+                <!-- 环绕触发  <aop:around pointcut-ref="log" method="around"/>   -->
+           <!--  </aop:aspect>  -->
+    </aop:config>
+
+</beans>
