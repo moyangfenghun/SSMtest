@@ -27,21 +27,6 @@ public class MainIntercepter implements HandlerInterceptor  {
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 		// TODO 请求处理前
 		LoggersUtils.LOGGER.info(request.getServletPath()+ "主拦截器pre..");
-		
-//		UserBean userinfo=(UserBean) request.getSession().getAttribute(LogindateServer.USER_Session);
-//		if(userinfo==null||StringUtils.isEmpty(userinfo.getName())){
-//
-//			//没有session,判断cookie
-//			if (logindateServer.logingVerifyCookies(response, request)) {
-//				System.out.println("cooki登录..");
-//				response.sendRedirect("/index");
-//				return false;
-//			}else{
-//				response.sendRedirect("/login/loginRegister");
-//				return false;
-//			}
-//		}
-		
 		return true;
 	}
 

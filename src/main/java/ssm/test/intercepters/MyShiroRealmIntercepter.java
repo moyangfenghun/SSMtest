@@ -34,6 +34,9 @@ public class MyShiroRealmIntercepter extends AuthorizingRealm {
         return info;
 	}
 
+	 /* 
+     * 登录验证
+     */
 	@Override
 	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authcToken) throws AuthenticationException {
 		 UsernamePasswordToken token = (UsernamePasswordToken) authcToken;
