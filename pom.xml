@@ -14,9 +14,32 @@
 		<mybatis.version>3.2.8</mybatis.version>
 		<fastjson.version>1.2.31</fastjson.version>
 		<jacksonAC.version>2.9.0.pr1</jacksonAC.version>
+		<shiro.verson>1.2.3</shiro.verson>
 	</properties>
 
 	<dependencies>
+
+		<!-- shiro-core -->
+		<dependency>
+			<groupId>org.apache.shiro</groupId>
+			<artifactId>shiro-core</artifactId>
+			<version>${shiro.verson}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.shiro</groupId>
+			<artifactId>shiro-web</artifactId>
+			<version>${shiro.verson}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.shiro</groupId>
+			<artifactId>shiro-ehcache</artifactId>
+			<version>${shiro.verson}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.shiro</groupId>
+			<artifactId>shiro-spring</artifactId>
+			<version>${shiro.verson}</version>
+		</dependency>
 
 		<dependency>
 			<groupId>junit</groupId>

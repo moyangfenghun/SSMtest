@@ -107,5 +107,6 @@
                 <!-- 环绕触发  <aop:around pointcut-ref="log" method="around"/>   -->
            <!--  </aop:aspect>  -->
     </aop:config>
+    <!-- shiro -->
 
 </beans>

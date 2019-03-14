@@ -6,6 +6,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
+import ssm.test.utils.LoggersUtils;
+
 
 public class MainIntercepter implements HandlerInterceptor  {
 	
@@ -24,7 +26,7 @@ public class MainIntercepter implements HandlerInterceptor  {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 		// TODO 请求处理前
-//		.info(request.getServletPath()+ "主拦截器pre..");
+		LoggersUtils.LOGGER.info(request.getServletPath()+ "主拦截器pre..");
 		
 //		UserBean userinfo=(UserBean) request.getSession().getAttribute(LogindateServer.USER_Session);
 //		if(userinfo==null||StringUtils.isEmpty(userinfo.getName())){
