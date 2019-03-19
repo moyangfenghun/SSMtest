@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("test")
 @Controller
 public class ViewResolve {
-	@RequestMapping("jsppage")
+	@RequestMapping("index")
 	public String jsppage(){
-		return "NewFile";
+		return "index";
 	}
 }

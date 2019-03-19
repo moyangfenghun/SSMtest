@@ -26,7 +26,8 @@ public class MyShiroRealmIntercepter extends AuthorizingRealm {
 	@Override
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection arg0) {
 		Set<String> roleNames = new HashSet<String>();  
-        Set<String> permissions = new HashSet<String>();  
+        Set<String> permissions = new HashSet<String>(); 
+        System.out.println("授权....");
         roleNames.add("administrator");//添加角色
         permissions.add("newPage.jhtml");  //添加权限
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo(roleNames);  
@@ -40,6 +41,7 @@ public class MyShiroRealmIntercepter extends AuthorizingRealm {
 	@Override
 	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authcToken) throws AuthenticationException {
 		 UsernamePasswordToken token = (UsernamePasswordToken) authcToken;
+		 System.out.println("登录验证....");
 	        if(token.getUsername().equals(USER_NAME)){
 	            return new SimpleAuthenticationInfo(USER_NAME, Md5Util.MD5(PASSWORD), getName());  
 	        }else{

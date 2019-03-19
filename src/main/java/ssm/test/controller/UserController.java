@@ -21,52 +21,23 @@ import ssm.test.utils.Md5Util;
 @Controller
 public class UserController {
 
-    @RequestMapping("/index.jhtml")
+    @RequestMapping("/index")
     public ModelAndView getIndex(HttpServletRequest request) throws Exception {
         ModelAndView mav = new ModelAndView("index");
         return mav;
     }
 
-    @RequestMapping("/exceptionForPageJumps.jhtml")
-    public ModelAndView exceptionForPageJumps(HttpServletRequest request) throws Exception {
-        throw new Exception();
-    }
-
-    @RequestMapping(value="/businessException.json", method=RequestMethod.POST)
-    @ResponseBody  
-    public String businessException(HttpServletRequest request) throws Exception {
-        throw new Exception();
-    }
-
-    @RequestMapping(value="/otherException.json", method=RequestMethod.POST)
-    @ResponseBody  
-    public String otherException(HttpServletRequest request) throws Exception {
-        throw new Exception();
-    }
-
     //跳转到登录页面
-    @RequestMapping("/login.jhtml")
+    @RequestMapping("/login")
     public ModelAndView login() throws Exception {
         ModelAndView mav = new ModelAndView("login");
         return mav;
     }
 
     //跳转到登录成功页面
-    @RequestMapping("/loginsuccess.jhtml")
+    @RequestMapping("/loginsuccess")
     public ModelAndView loginsuccess() throws Exception {
         ModelAndView mav = new ModelAndView("loginsuccess");
-        return mav;
-    }
-
-    @RequestMapping("/newPage.jhtml")
-    public ModelAndView newPage() throws Exception {
-        ModelAndView mav = new ModelAndView("newPage");
-        return mav;
-    }
-
-    @RequestMapping("/newPageNotAdd.jhtml")
-    public ModelAndView newPageNotAdd() throws Exception {
-        ModelAndView mav = new ModelAndView("newPageNotAdd");
         return mav;
     }
 
