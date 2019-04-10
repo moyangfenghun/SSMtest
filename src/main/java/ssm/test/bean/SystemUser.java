@@ -1,11 +1,17 @@
 package ssm.test.bean;
 
+import java.util.Date;
+
 public class SystemUser {
     private Integer id;
 
     private String name;
 
     private String password;
+
+    private String content;
+
+    private Date createdatetime;
 
     public Integer getId() {
         return id;
@@ -29,5 +35,21 @@ public class SystemUser {
 
     public void setPassword(String password) {
         this.password = password == null ? null : password.trim();
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content == null ? null : content.trim();
+    }
+
+    public Date getCreatedatetime() {
+        return createdatetime;
+    }
+
+    public void setCreatedatetime(Date createdatetime) {
+        this.createdatetime = createdatetime;
     }
 }

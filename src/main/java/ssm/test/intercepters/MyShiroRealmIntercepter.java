@@ -12,9 +12,11 @@ import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
+import org.springframework.stereotype.Component;
 
 import ssm.test.utils.Md5Util;
 
+@Component(value="myRealm")
 public class MyShiroRealmIntercepter extends AuthorizingRealm {
 	//这里因为没有调用后台，直接默认只有一个用户("luoguohui"，"123456")
     private static final String USER_NAME = "luoguohui";  

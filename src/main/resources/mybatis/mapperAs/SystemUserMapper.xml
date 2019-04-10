@@ -5,9 +5,11 @@
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="createDatetime" jdbcType="TIMESTAMP" property="createdatetime" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, `name`, `password`
+    id, `name`, `password`, content, createDatetime
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -23,8 +25,10 @@
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into system_user (`name`, `password`)
-    values (#{name,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR})
+    insert into system_user (`name`, `password`, content, 
+      createDatetime)
+    values (#{name,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, 
+      #{createdatetime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="ssm.test.bean.SystemUser">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
@@ -38,6 +42,12 @@
       <if test="password != null">
         `password`,
       </if>
+      <if test="content != null">
+        content,
+      </if>
+      <if test="createdatetime != null">
+        createDatetime,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="name != null">
@@ -45,6 +55,12 @@
       </if>
       <if test="password != null">
         #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="createdatetime != null">
+        #{createdatetime,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
@@ -57,13 +73,21 @@
       <if test="password != null">
         `password` = #{password,jdbcType=VARCHAR},
       </if>
+      <if test="content != null">
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="createdatetime != null">
+        createDatetime = #{createdatetime,jdbcType=TIMESTAMP},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="ssm.test.bean.SystemUser">
     update system_user
     set `name` = #{name,jdbcType=VARCHAR},
-      `password` = #{password,jdbcType=VARCHAR}
+      `password` = #{password,jdbcType=VARCHAR},
+      content = #{content,jdbcType=VARCHAR},
+      createDatetime = #{createdatetime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

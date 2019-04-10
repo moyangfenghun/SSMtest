@@ -1,55 +1,59 @@
-<?xml version="1.0" encoding="UTF-8"?>  
-<beans xmlns="http://www.springframework.org/schema/beans"  
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  
-    xsi:schemaLocation="http://www.springframework.org/schema/beans   
-                        http://www.springframework.org/schema/beans/spring-beans-3.0.xsd"  
-    default-lazy-init="true">  
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans   
+                        http://www.springframework.org/schema/beans/spring-beans-3.0.xsd"
+	default-lazy-init="true">
 
-    <description>Shiro Configuration</description>  
+	<description>Shiro Configuration</description>
 
-    <!-- Shiro's main business-tier object for web-enabled applications -->  
-    <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">  
-        <property name="realm" ref="myShiroRealm" />  
-        <property name="cacheManager" ref="cacheManager" />  
-    </bean>  
+	<!-- Shiro's main business-tier object for web-enabled applications -->
+	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+		<property name="realm" ref="myRealm" />
+		<property name="cacheManager" ref="cacheManager" />
+	</bean>
 
-    <!-- 項目自定义的Realm -->  
-    <bean id="myShiroRealm" class="ssm.test.intercepters.MyShiroRealmIntercepter">  
-        <property name="cacheManager" ref="cacheManager" />  
-    </bean>  
+	<!-- Shiro Filter此处的名字必须和web.xml中filter相同 -->
+	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+		<property name="securityManager" ref="securityManager" />
+		<!-- 未登录时跳转的页面 -->
+		<property name="loginUrl" value="/login" />
+		<!-- 登录成功后跳转的页面 -->
+		<property name="successUrl" value="/index" />
+		<!-- unauthorizedUrl登录后没有权限时跳转的页面 -->
+		<property name="unauthorizedUrl" value="/index" />
+		<property name="filterChainDefinitions">
+			<value>
+				/index = authc
+				/login= anon
+				/** = authc
+			</value>
+		</property>
+	</bean>
+	<!-- 用户授权信息Cache -->
+	<bean id="cacheManager" class="org.apache.shiro.cache.MemoryConstrainedCacheManager" />
+	<!-- 注入缓存管理器 -->
+	<bean id="shiroCacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
+		<property name="cacheManager" ref="ehCacheManager" />
+	</bean>
+	<bean id="ehCacheManager"
+		class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
+		<property name="configLocation" value="classpath:shiro/shiro-ehcache.xml" />
+		<property name="shared" value="true"></property>
+	</bean>
+	<!-- 保证实现了Shiro内部lifecycle函数的bean执行 -->
+	<bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor" />
 
-    <!-- Shiro Filter -->  
-    <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">  
-        <property name="securityManager" ref="securityManager" />  
-        <property name="loginUrl" value="/login.jhtml" />  
-        <property name="successUrl" value="/loginsuccess.jhtml" />  
-        <property name="unauthorizedUrl" value="/error.jhtml" />  
-        <property name="filterChainDefinitions">  
-            <value>  
-                /index.jhtml = authc  
-                /login.jhtml = anon
-                /checkLogin.json = anon  
-                /loginsuccess.jhtml = anon  
-                /logout.json = anon  
-                /** = authc  
-            </value>  
-        </property>  
-    </bean>  
+	<!-- AOP式方法级权限检查，启用注解方式必须配置lifecycleBeanPostProcessor -->
+	<bean
+		class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"
+		depends-on="lifecycleBeanPostProcessor">
+		<property name="proxyTargetClass" value="true" />
+	</bean>
 
-    <!-- 用户授权信息Cache -->  
-    <bean id="cacheManager" class="org.apache.shiro.cache.MemoryConstrainedCacheManager" />  
-
-    <!-- 保证实现了Shiro内部lifecycle函数的bean执行 -->  
-    <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor" />  
-
-    <!-- AOP式方法级权限检查 -->  
-    <bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"  
-        depends-on="lifecycleBeanPostProcessor">  
-        <property name="proxyTargetClass" value="true" />  
-    </bean>  
-
-    <bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">  
-        <property name="securityManager" ref="securityManager" />  
-    </bean>  
+	<bean
+		class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
+		<property name="securityManager" ref="securityManager" />
+	</bean>
 
 </beans>

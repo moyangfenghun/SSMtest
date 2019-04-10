@@ -27,7 +27,7 @@ public class MainIntercepter implements HandlerInterceptor  {
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 		// TODO 请求处理前
 		LoggersUtils.LOGGER.info(request.getServletPath()+ "主拦截器pre..");
-		System.out.println(request.getSession().getId());
+//		System.out.println(request.getSession().getId());
 		return true;
 	}
 
