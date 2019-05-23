@@ -9,15 +9,21 @@ import org.apache.shiro.authc.DisabledAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.authz.UnauthorizedException;
 import org.apache.shiro.subject.Subject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import ssm.test.common.MenuController;
+import ssm.test.common.aop.LoggerAspect;
 
 /**
  * @author 86189
  *
  */
 @Controller
-public class indexLogingContorller {
+public class indexLogingController {
+	@Autowired
+	LoggerAspect log;
 
 	/**
 	 * 
@@ -60,6 +66,7 @@ public class indexLogingContorller {
 	 * 登录页面
 	 * @return
 	 */
+	@MenuController(name="首页页面")
 	@RequestMapping("/login")
 	public String login() {
 		return "login";
@@ -69,6 +76,7 @@ public class indexLogingContorller {
 	 * 首页页面
 	 * @return
 	 */
+	@MenuController(name="首页页面")
 	@RequestMapping("/index")
 	public String index() {
 		return "index";

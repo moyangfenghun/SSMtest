@@ -94,18 +94,18 @@
         </tx:attributes>
     </tx:advice>
 
-    <!--8、aop管理事物,全局配置-->
+    <!--8、aop全局配置-->
     <aop:config>
+        <!-- 事物管理-->
         <aop:pointcut expression="execution(* ssm.test.service..*.*(..))" id="serviceMethod"/>
         <aop:advisor advice-ref="txAdvice" pointcut-ref="serviceMethod"/>
-         <!--调用日志类 声明aop -->
-         <!-- <aop:aspect id="LogAspect" ref="logAspect">-->
+         <!--调用日志类 声明aop 
+          <aop:aspect id="LogAspect" ref="loggerAspect"> --> 
               <!--配置在controller包下所有的类在调用之前都会被拦截
               <aop:pointcut id="log" expression="execution(* com.noahwm.uomp.archives.controller.*.*(..))"/> --> 
               <!-- 方法前触发 <aop:before pointcut-ref="log" method="before"/> -->
                <!-- 方法后触发<aop:after pointcut-ref="log" method="after"/> -->
                 <!-- 环绕触发  <aop:around pointcut-ref="log" method="around"/>   -->
-           <!--  </aop:aspect>  -->
+         <!--  </aop:aspect> -->
     </aop:config>
-    <!-- shiro -->
 </beans>

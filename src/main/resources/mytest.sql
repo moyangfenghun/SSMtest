@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 80013
 File Encoding         : 65001
 
-Date: 2019-05-23 10:59:24
+Date: 2019-05-23 14:08:32
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -25,7 +25,9 @@ CREATE TABLE `system_permissions` (
   `createDatetime` datetime DEFAULT NULL,
   `murl` varchar(255) DEFAULT NULL,
   `alias` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `systempermissions_name` (`permissions_name`),
+  UNIQUE KEY `system_murl` (`murl`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -36,7 +38,8 @@ CREATE TABLE `system_role` (
   `id` int(11) NOT NULL,
   `role_name` varchar(255) DEFAULT NULL,
   `createDatetime` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `systerole_name` (`role_name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
