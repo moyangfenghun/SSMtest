@@ -1,6 +1,6 @@
 package ssm.test.common.bean;
 
-public class LayuiMessageBean {
+public class MessageBean {
 	private int total=0;
 	private String message="";
 	private int status=0;

@@ -26,6 +26,14 @@
 		</jdbcConnection>
 
 		<javaTypeResolver>
+		<!-- 
+            true：使用BigDecimal对应DECIMAL和 NUMERIC数据类型
+            false：默认,
+                scale>0;length>18：使用BigDecimal;
+                scale=0;length[10,18]：使用Long；
+                scale=0;length[5,9]：使用Integer；
+                scale=0;length<5：使用Short；
+         -->
 			<property name="forceBigDecimals" value="false" />
 		</javaTypeResolver>
 
@@ -44,14 +52,22 @@
 			targetPackage="ssm.test.dao" targetProject="src/main/java">
 			<property name="enableSubPackages" value="true" />
 		</javaClientGenerator>
-
-		<table tableName="system_%" enableCountByExample="false"
+		<!-- 批量生成-->
+		<!-- <table tableName="system_%" enableCountByExample="false"
 			enableDeleteByExample="false" enableSelectByExample="false"
 			enableUpdateByExample="false">
-			<property name="useActualColumnNames" value="false" />
+			 重写列的配置
+			<columnOverride column="" javaType=""></columnOverride> 
+			 type=post |type=pre 
+			<generatedKey column="id" sqlStatement="Mysql" identity="true" />
+		</table>  -->
+		<table tableName="system_permissions" enableCountByExample="false"
+			enableDeleteByExample="false" enableSelectByExample="false"
+			enableUpdateByExample="false">
+			<!-- 重写列的配置
+			<columnOverride column="" javaType=""></columnOverride> -->
 			<!-- type=post |type=pre -->
 			<generatedKey column="id" sqlStatement="Mysql" identity="true" />
 		</table>
-
 	</context>
 </generatorConfiguration>

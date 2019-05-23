@@ -94,7 +94,7 @@
         </tx:attributes>
     </tx:advice>
 
-    <!--8、aop管理事物-->
+    <!--8、aop管理事物,全局配置-->
     <aop:config>
         <aop:pointcut expression="execution(* ssm.test.service..*.*(..))" id="serviceMethod"/>
         <aop:advisor advice-ref="txAdvice" pointcut-ref="serviceMethod"/>

@@ -17,6 +17,12 @@
     from system_user
     where id = #{id,jdbcType=INTEGER}
   </select>
+  <select id="selectByuserName" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from system_user
+    where `name` = #{name,jdbcType=VARCHAR}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from system_user
     where id = #{id,jdbcType=INTEGER}

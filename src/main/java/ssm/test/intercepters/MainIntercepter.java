@@ -26,8 +26,8 @@ public class MainIntercepter implements HandlerInterceptor  {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 		// TODO 请求处理前
-		LoggersUtils.LOGGER.info(request.getServletPath()+ "主拦截器pre..");
-//		System.out.println(request.getSession().getId());
+		LoggersUtils.LOGGER.info(request.getServletPath()+ ":springmvc拦截器pre..");
+		System.out.println(request.getSession().getId());
 		return true;
 	}
 

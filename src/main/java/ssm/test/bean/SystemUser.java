@@ -6,11 +6,11 @@ public class SystemUser {
     private Integer id;
 
     private String name;
-
+    
     private String password;
 
     private String content;
-
+    
     private Date createdatetime;
 
     public Integer getId() {

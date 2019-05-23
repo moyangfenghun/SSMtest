@@ -14,4 +14,6 @@ public interface SystemUserMapper {
     int updateByPrimaryKeySelective(SystemUser record);
 
     int updateByPrimaryKey(SystemUser record);
+
+	SystemUser selectByuserName(String name);
 }
