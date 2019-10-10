@@ -61,7 +61,7 @@
 			 type=post |type=pre 
 			<generatedKey column="id" sqlStatement="Mysql" identity="true" />
 		</table>  -->
-		<table tableName="system_permissions" enableCountByExample="false"
+		<table tableName="system_role" enableCountByExample="false"
 			enableDeleteByExample="false" enableSelectByExample="false"
 			enableUpdateByExample="false">
 			<!-- 重写列的配置

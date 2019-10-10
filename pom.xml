@@ -9,7 +9,7 @@
 	<url>http://maven.apache.org</url>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		
+
 		<spring.version>4.3.22.RELEASE</spring.version>
 		<jackson.version>2.8.11.1</jackson.version>
 		<mybatis.version>3.2.8</mybatis.version>
@@ -18,7 +18,27 @@
 		<shiro.verson>1.3.2</shiro.verson>
 	</properties>
 
+<!-- 测试包 -->
 	<dependencies>
+
+		<!-- poi -->
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi-ooxml</artifactId>
+			<version>3.8</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/xerces/xercesImpl -->
+		<dependency>
+			<groupId>xerces</groupId>
+			<artifactId>xercesImpl</artifactId>
+			<version>2.11.0</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient -->
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			<version>4.5.2</version>
+		</dependency>
 
 		<!-- shiro-core -->
 		<dependency>
@@ -124,7 +144,7 @@
 		</dependency>
 
 
-		<!-- 数据源 -->
+		<!-- 数据源,数据库连接池 -->
 		<dependency>
 			<groupId>com.alibaba</groupId>
 			<artifactId>druid</artifactId>

@@ -12,6 +12,7 @@ import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 
 import ssm.test.common.MenuController;
 import ssm.test.common.aop.LoggerAspect;
@@ -22,9 +23,15 @@ import ssm.test.common.aop.LoggerAspect;
  */
 @Controller
 public class indexLogingController {
+//	@Autowired
+//	LoggerAspect log;
 	@Autowired
-	LoggerAspect log;
-
+	RequestMappingHandlerMapping rmhm;//拿到所有的@RequestMapping
+	/*
+	 * maps= rmhm.getHandlerMethods();
+	 * methods= maps.values();
+	 * 
+	 */
 	/**
 	 * 
 	 * 登录接口
@@ -79,6 +86,7 @@ public class indexLogingController {
 	@MenuController(name="首页页面")
 	@RequestMapping("/index")
 	public String index() {
+		
 		return "index";
 	}
 

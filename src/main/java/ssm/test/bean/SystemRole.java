@@ -9,6 +9,8 @@ public class SystemRole {
 
     private Date createdatetime;
 
+    private String roleDescribe;
+
     public Integer getId() {
         return id;
     }
@@ -31,5 +33,13 @@ public class SystemRole {
 
     public void setCreatedatetime(Date createdatetime) {
         this.createdatetime = createdatetime;
+    }
+
+    public String getRoleDescribe() {
+        return roleDescribe;
+    }
+
+    public void setRoleDescribe(String roleDescribe) {
+        this.roleDescribe = roleDescribe == null ? null : roleDescribe.trim();
     }
 }
